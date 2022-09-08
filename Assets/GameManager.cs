@@ -4,36 +4,36 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int coins;
-    private int coinsPerClick = 1;
-    private int coinsPerSecond = 0;
+    private float coins;
+    private float coinsPerClick = 0.1f;
+    private float coinsPerSecond = 0;
 
-    public int getCoins() 
+    public float getCoins() 
     {
         return coins;
     }
 
-    public int getCoinsPerClick() 
+    public float getCoinsPerClick() 
     {
         return coinsPerClick;
     }
 
-    public void addCoins(int amount) 
+    public void addCoins(float amount) 
     {
         coins += amount;
     }
 
-    public void addCoinsPerClick(int amount) 
+    public void addCoinsPerClick(float amount) 
     {
         coinsPerClick += amount;
     }
 
-    public void addCoinsPerSecond(int amount) 
+    public void addCoinsPerSecond(float amount) 
     {
         coinsPerSecond += amount;
     }
 
-    public int getCoinsPerSecond() 
+    public float getCoinsPerSecond() 
     {
         return coinsPerSecond;
     }
