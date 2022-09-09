@@ -10,12 +10,14 @@ public class DebugMenu : MonoBehaviour
     private TMP_Text coinsPerSecondText;
 
     private GameManager gameManager;
+    private UpgradesManager upgradesManager;
 
     [SerializeField] private GameObject debugMenu;
 
     private void Start()
     {
         gameManager = this.GetComponent<GameManager>();
+        upgradesManager = this.GetComponent<UpgradesManager>();
     }
 
     private void Update()
@@ -68,6 +70,8 @@ public class DebugMenu : MonoBehaviour
         gameManager.setCoins(0);
         gameManager.setCoinsPerClick(1);
         gameManager.setCoinsPerSecond(0);
+        upgradesManager.setCoinsPerClickUpgradePrice(5);
+        upgradesManager.setCoinsPerSecondUpgradePrice(10);
 
         PlayerPrefs.DeleteAll();
 

@@ -16,6 +16,9 @@ public class UpgradesManager : MonoBehaviour
     void Start() 
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        coinsPerClickPriceText.text = "Price: " + coinsPerClickUpgradePrice.ToString();
+        coinsPerSecondPriceText.text = "Price: " + coinsPerSecondUpgradePrice.ToString();
     }
 
     public void upgradeCoinsPerClick()
@@ -47,5 +50,25 @@ public class UpgradesManager : MonoBehaviour
             print("coins per second: " + gameManager.getCoinsPerSecond());
             print("coins per second upgrade price: " + coinsPerSecondUpgradePrice);
         }
+    }
+
+    public int getCoinsPerClickUpgradePrice() 
+    {
+        return coinsPerClickUpgradePrice;
+    }
+
+    public int getCoinsPerSecondUpgradePrice() 
+    {
+        return coinsPerSecondUpgradePrice;
+    }
+
+    public void setCoinsPerClickUpgradePrice(int value) 
+    {
+        coinsPerClickUpgradePrice = value;
+    }
+
+    public void setCoinsPerSecondUpgradePrice(int value) 
+    {
+        coinsPerSecondUpgradePrice = value;
     }
 }

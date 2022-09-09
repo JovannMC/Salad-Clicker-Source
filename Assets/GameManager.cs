@@ -8,6 +8,23 @@ public class GameManager : MonoBehaviour
     private float coinsPerClick = 0.1f;
     private float coinsPerSecond = 0;
 
+    private UpgradesManager upgradesManager;
+
+    private void Start() 
+    {
+        upgradesManager = this.GetComponent<UpgradesManager>();
+
+        checkSave();
+
+        StartCoroutine(addCoinsPerSecond());
+        StartCoroutine(autoSave());
+    }
+
+    private void Update() 
+    {
+        Application.quitting += Save;
+    }
+
     public float getCoins() 
     {
         return coins;
@@ -43,20 +60,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("coins", coins);
         PlayerPrefs.SetFloat("coinsPerClick", coinsPerClick);
         PlayerPrefs.SetFloat("coinsPerSecond", coinsPerSecond);
+        PlayerPrefs.SetInt("coinsPerClickUpgradePrice", upgradesManager.getCoinsPerClickUpgradePrice());
+        PlayerPrefs.SetInt("coinsPerSecondUpgradePrice", upgradesManager.getCoinsPerSecondUpgradePrice());
+        
         print("saved");
-    }
-
-    private void Start() 
-    {
-        checkSave();
-
-        StartCoroutine(addCoinsPerSecond());
-        StartCoroutine(autoSave());
-    }
-
-    private void Update() 
-    {
-        Application.quitting += Save;
     }
 
     public void checkSave() 
@@ -80,9 +87,23 @@ public class GameManager : MonoBehaviour
             print("coinsPerSecond not found, creating coinsPerSecond playerpref with value of 0");
         }
 
+        if (!PlayerPrefs.HasKey("coinsPerClickUpgradePrice")) 
+        {
+            PlayerPrefs.SetFloat("coinsPerClickUpgradePrice", 5);
+            print("coinsPerClickUpgradePrice not found, creating coinsPerClickUpgradePrice playerpref with value of 5");
+        }
+
+        if (!PlayerPrefs.HasKey("coinsPerSecondUpgradePrice")) 
+        {
+            PlayerPrefs.SetFloat("coinsPerSecondUpgradePrice", 10);
+            print("coinsPerSecondUpgradePrice not found, creating coinsPerSecondUpgradePrice playerpref with value of 10");
+        }
+
         coins = PlayerPrefs.GetFloat("coins");
         coinsPerClick = PlayerPrefs.GetFloat("coinsPerClick");
         coinsPerSecond = PlayerPrefs.GetFloat("coinsPerSecond");
+        upgradesManager.setCoinsPerClickUpgradePrice(PlayerPrefs.GetInt("coinsPerClickUpgradePrice"));
+        upgradesManager.setCoinsPerSecondUpgradePrice(PlayerPrefs.GetInt("coinsPerSecondUpgradePrice"));
     }
 
     IEnumerator autoSave() 
