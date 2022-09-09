@@ -18,19 +18,19 @@ public class GameManager : MonoBehaviour
         return coinsPerClick;
     }
 
-    public void addCoins(float amount) 
+    public void setCoins(float amount) 
     {
-        coins += amount;
+        coins = amount;
     }
 
-    public void addCoinsPerClick(float amount) 
+    public void setCoinsPerClick(float amount) 
     {
-        coinsPerClick += amount;
+        coinsPerClick = amount;
     }
 
-    public void addCoinsPerSecond(float amount) 
+    public void setCoinsPerSecond(float amount) 
     {
-        coinsPerSecond += amount;
+        coinsPerSecond = amount;
     }
 
     public float getCoinsPerSecond() 
@@ -38,9 +38,60 @@ public class GameManager : MonoBehaviour
         return coinsPerSecond;
     }
 
+    private void Save() 
+    {
+        PlayerPrefs.SetFloat("coins", coins);
+        PlayerPrefs.SetFloat("coinsPerClick", coinsPerClick);
+        PlayerPrefs.SetFloat("coinsPerSecond", coinsPerSecond);
+        print("saved");
+    }
+
     private void Start() 
     {
+        checkSave();
+
         StartCoroutine(addCoinsPerSecond());
+        StartCoroutine(autoSave());
+    }
+
+    private void Update() 
+    {
+        Application.quitting += Save;
+    }
+
+    public void checkSave() 
+    {
+        // Check if we have a saved game
+        if (!PlayerPrefs.HasKey("coins")) 
+        {
+            PlayerPrefs.SetFloat("coins", 0);
+            print("coins not found, creating coins playerpref with value of 0");
+        }
+
+        if (!PlayerPrefs.HasKey("coinsPerClick")) 
+        {
+            PlayerPrefs.SetFloat("coinsPerClick", 0.1f);
+            print("coinsPerClick not found, creating coinsPerClick playerpref with value of 0.1");
+        }
+
+        if (!PlayerPrefs.HasKey("coinsPerSecond")) 
+        {
+            PlayerPrefs.SetFloat("coinsPerSecond", 0);
+            print("coinsPerSecond not found, creating coinsPerSecond playerpref with value of 0");
+        }
+
+        coins = PlayerPrefs.GetFloat("coins");
+        coinsPerClick = PlayerPrefs.GetFloat("coinsPerClick");
+        coinsPerSecond = PlayerPrefs.GetFloat("coinsPerSecond");
+    }
+
+    IEnumerator autoSave() 
+    {
+        while (true) 
+        {
+            yield return new WaitForSeconds(10);
+            Save();
+        }
     }
 
     IEnumerator addCoinsPerSecond() 
@@ -48,7 +99,7 @@ public class GameManager : MonoBehaviour
         while (true) 
         {
             yield return new WaitForSeconds(1);
-            addCoins(coinsPerSecond);
+            setCoins(coins + coinsPerSecond);
         }
     }
 }

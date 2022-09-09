@@ -22,8 +22,8 @@ public class UpgradesManager : MonoBehaviour
     {
         if (gameManager.getCoins() >= coinsPerClickUpgradePrice) 
         {
-            gameManager.addCoins(-coinsPerClickUpgradePrice);
-            gameManager.addCoinsPerClick(0.1f);
+            gameManager.setCoins(gameManager.getCoins() - coinsPerClickUpgradePrice);
+            gameManager.setCoinsPerClick(gameManager.getCoinsPerClick() + 0.1f);
 
             coinsPerClickUpgradePrice += 10;
             coinsPerClickPriceText.text = "Price: " + coinsPerClickUpgradePrice;
@@ -38,8 +38,8 @@ public class UpgradesManager : MonoBehaviour
     {
         if (gameManager.getCoins() >= coinsPerSecondUpgradePrice) 
         {
-            gameManager.addCoins(-coinsPerSecondUpgradePrice);
-            gameManager.addCoinsPerSecond(1);
+            gameManager.setCoins(gameManager.getCoins() - coinsPerSecondUpgradePrice);
+            gameManager.setCoinsPerSecond(gameManager.getCoinsPerSecond() + 1);
 
             coinsPerSecondUpgradePrice += 20;
             coinsPerSecondPriceText.text = "Price: " + coinsPerSecondUpgradePrice;

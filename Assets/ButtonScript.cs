@@ -17,7 +17,7 @@ public class ButtonScript : MonoBehaviour
 
     public void updateCounter() 
     {
-        gameManager.addCoins(gameManager.getCoinsPerClick());
+        gameManager.setCoins(gameManager.getCoins() + gameManager.getCoinsPerClick());
         print("added " + gameManager.getCoinsPerClick() + " coins");
         counter.text = gameManager.getCoins().ToString();
         print("current coins: " + gameManager.getCoins());
