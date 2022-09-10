@@ -18,13 +18,12 @@ public class ButtonScript : MonoBehaviour
     public void updateCounter() 
     {
         gameManager.setCoins(gameManager.getCoins() + gameManager.getCoinsPerClick());
-        print("added " + gameManager.getCoinsPerClick() + " coins");
-        counter.text = gameManager.getCoins().ToString();
-        print("current coins: " + gameManager.getCoins());
+        print("added " + gameManager.getCoinsPerClick() + " coins, current coins: " + gameManager.getCoins());
+        counter.text = gameManager.getCoins().ToString("0.0");
     }
 
     private void Update() 
     {
-        counter.text = gameManager.getCoins().ToString();
+        counter.text = gameManager.getCoins().ToString("0.0");
     }
 }

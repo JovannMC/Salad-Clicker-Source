@@ -65,10 +65,12 @@ public class UpgradesManager : MonoBehaviour
     public void setCoinsPerClickUpgradePrice(int value) 
     {
         coinsPerClickUpgradePrice = value;
+        coinsPerClickPriceText.text = "Price: " + coinsPerClickUpgradePrice.ToString();
     }
 
     public void setCoinsPerSecondUpgradePrice(int value) 
     {
         coinsPerSecondUpgradePrice = value;
+        coinsPerSecondPriceText.text = "Price: " + coinsPerSecondUpgradePrice.ToString();
     }
 }
