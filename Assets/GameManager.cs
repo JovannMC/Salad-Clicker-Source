@@ -89,13 +89,13 @@ public class GameManager : MonoBehaviour
 
         if (!PlayerPrefs.HasKey("coinsPerClickUpgradePrice")) 
         {
-            PlayerPrefs.SetFloat("coinsPerClickUpgradePrice", 5);
+            PlayerPrefs.SetInt("coinsPerClickUpgradePrice", 5);
             print("coinsPerClickUpgradePrice not found, creating coinsPerClickUpgradePrice playerpref with value of 5");
         }
 
         if (!PlayerPrefs.HasKey("coinsPerSecondUpgradePrice")) 
         {
-            PlayerPrefs.SetFloat("coinsPerSecondUpgradePrice", 10);
+            PlayerPrefs.SetInt("coinsPerSecondUpgradePrice", 10);
             print("coinsPerSecondUpgradePrice not found, creating coinsPerSecondUpgradePrice playerpref with value of 10");
         }
 
@@ -104,6 +104,12 @@ public class GameManager : MonoBehaviour
         coinsPerSecond = PlayerPrefs.GetFloat("coinsPerSecond");
         upgradesManager.setCoinsPerClickUpgradePrice(PlayerPrefs.GetInt("coinsPerClickUpgradePrice"));
         upgradesManager.setCoinsPerSecondUpgradePrice(PlayerPrefs.GetInt("coinsPerSecondUpgradePrice"));
+    }
+
+    public void mainMenuBtn() 
+    {
+        Save();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     IEnumerator autoSave() 
